@@ -6,7 +6,6 @@ import { Header } from "@/components/silli/Header";
 import { Blob, Card, Field, PillButton, inputClass } from "@/components/silli/ui";
 import mascot from "@/assets/silli-mascot.png";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -73,18 +72,6 @@ function Auth() {
     }
   };
 
-  const google = async () => {
-    setError(null);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      setError("Google sign in didn't work. Try again?");
-      return;
-    }
-    if (result.redirected) return;
-    navigate({ to: "/start" });
-  };
 
   return (
     <div className="min-h-screen overflow-x-hidden silli-dots">
@@ -148,14 +135,6 @@ function Auth() {
                 {busy ? "Hang on…" : mode === "in" ? "Log me in →" : "Create my account →"}
               </PillButton>
             </form>
-
-            <div className="my-2 text-center font-display text-xs font-bold text-muted-foreground">
-              or
-            </div>
-
-            <PillButton type="button" variant="ghost" onClick={google} className="w-full">
-              Continue with Google
-            </PillButton>
 
             <button
               type="button"
