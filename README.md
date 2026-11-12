@@ -1,29 +1,48 @@
-# Welcome to your Lovable project
+# Rude Utilities
 
-This project was built with [Lovable](https://lovable.dev).
+Moving home? Sort energy, broadband, council tax and water online. No calls.
 
-## Build with Lovable
+Originally built in Lovable, now hosted on Cloudflare Pages.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- TanStack Start (React 19, SSR + server functions)
+- Tailwind CSS 4, shadcn/ui
+- Supabase (auth + database)
+- Built with Vite + Nitro using the `cloudflare-pages` preset (see `vite.config.ts`)
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+## Local development
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+bun install
+bun run dev
 ```
 
-## Built with
+## Build and preview on the Cloudflare runtime
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+```sh
+bun run build
+bunx wrangler pages dev dist
+```
+
+The build writes static assets to `dist/` and the SSR worker to `dist/_worker.js/`.
+
+## Deployment (Cloudflare Pages)
+
+The Pages project `rude-utilities` builds from this repo:
+
+- Build command: `bun run build`
+- Output directory: `dist`
+- Compatibility flag: `nodejs_compat` (set in `wrangler.toml`)
+
+### Secrets
+
+Set these in Cloudflare: Workers & Pages → rude-utilities → Settings → Variables and Secrets.
+
+| Name | Used for |
+| --- | --- |
+| `ENERGY_SHOP_API_KEY` | Energy quotes and switching (`src/lib/energy-shop.functions.ts`) |
+| `ENERGY_SHOP_AGENT_ID` | Submitting energy switches |
+| `IDEAL_POSTCODES_API_KEY` | Address lookup (`src/lib/postcodes.functions.ts`) |
+
+The public Supabase URL and publishable key live in `.env` and are baked in at build time.

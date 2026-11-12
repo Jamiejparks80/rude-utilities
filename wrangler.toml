@@ -1,0 +1,5 @@
+# Cloudflare Pages config. Read by Cloudflare's Git builds and by `wrangler pages`.
+name = "rude-utilities"
+pages_build_output_dir = "./dist"
+compatibility_date = "2025-09-01"
+compatibility_flags = ["nodejs_compat"]

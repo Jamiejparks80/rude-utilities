@@ -15,6 +15,7 @@ export default defineConfig({
   // Build for Cloudflare Pages: output goes to dist/ with the SSR worker at dist/_worker.js.
   nitro: {
     preset: "cloudflare-pages",
+    compatibilityDate: "2025-09-01",
     cloudflare: { nodeCompat: true, deployConfig: true },
   },
 });
