@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const BASE = "https://testapi.theenergyshop.co.uk/api/v1";
+const BASE = "https://api.theenergyshop.co.uk/api/v1";
 
 export type LiveTariff = {
   tariffId: number;
